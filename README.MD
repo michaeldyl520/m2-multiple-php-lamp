@@ -5,5 +5,5 @@
 4. Edit /etc/hosts
 # 
 ```shell
-docker run -d --name www -v ~/magento2-multiple-php-environment/sites-enabled:/etc/apache2/sites-enabled -v ~/website:/home/www/website ~/db:/var/lib/mysql -p80:80 -p443:443 -p3306:3306 www
+docker run -d --name www -v ~/magento2-multiple-php-environment/sites-enabled:/etc/apache2/sites-enabled -v ~/website:/home/www/website -v ~/db:/var/lib/mysql -p80:80 -p443:443 -p3306:3306 michaeldyl520/m2-multiple-php-lamp
 ```

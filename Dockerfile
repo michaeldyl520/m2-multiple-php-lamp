@@ -26,12 +26,11 @@ COPY ./etc/php/7.0/fpm/pool.d/* /etc/php/7.0/fpm/pool.d/
 COPY ./etc/php/7.1/fpm/pool.d/* /etc/php/7.1/fpm/pool.d/
 COPY ./etc/php/7.2/fpm/pool.d/* /etc/php/7.2/fpm/pool.d/
 
+COPY ./etc/mysql/mariadb.conf.d/50-server.cnf /etc/mysql/mariadb.conf.d/
+
 RUN a2enmod rewrite ssl proxy proxy_fcgi
 
-RUN service mysql start \
-    && mysql -e "set password for root@localhost=PASSWORD('123456')" \
-    && mysql -e "update mysql.user set plugin='' where User='root'"
-EXPOSE 80 443
+EXPOSE 80 443 3306
 
 COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh

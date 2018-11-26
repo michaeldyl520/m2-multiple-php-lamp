@@ -9,4 +9,23 @@ service php7.0-fpm start
 service php7.1-fpm start
 service php7.2-fpm start
 service mysql start
+if [ $? -ne 0 ]; then
+    echo "failed"
+    mysql_install_db
+    wait
+    service mysql start
+    wait
+    mysql -e "UPDATE mysql.user SET plugin = '' WHERE User = 'root'"
+    wait
+    mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456' WITH GRANT OPTION"
+    wait
+    '/usr/bin/mysqladmin' -u root password '123456'
+    if [ $? -ne 0 ]; then
+        echo "update root password faild."
+    else
+        echo "update root password success."
+    fi
+else
+    echo "succeed"
+fi
 /usr/sbin/apache2ctl -D FOREGROUND
