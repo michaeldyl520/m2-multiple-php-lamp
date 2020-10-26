@@ -8,6 +8,7 @@ service php5.6-fpm start
 service php7.0-fpm start
 service php7.1-fpm start
 service php7.2-fpm start
+service php7.3-fpm start
 service mysql start
 if [ $? -ne 0 ]; then
     echo "failed"
